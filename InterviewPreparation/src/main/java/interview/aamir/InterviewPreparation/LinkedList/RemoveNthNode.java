@@ -1,0 +1,67 @@
+package interview.aamir.InterviewPreparation.LinkedList;
+
+class Node{
+    int data;
+    Node next;
+
+    public Node(int value) {
+        this.data = value;
+        this.next = null;
+    }
+}
+
+public class RemoveNthNode {
+
+    static int length(Node head){
+        Node temp = head;
+        int count = 0;
+        while (temp != null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
+    static  void ptrList(Node head){
+        Node ptr = head;
+        while (ptr != null){
+            System.out.print( ptr.data + " ");
+            ptr = ptr.next;
+        }
+        System.out.println();
+    }
+
+    static Node deleteNthNodeFromEnd(Node node , int n){
+        int Length = length(node);
+        int nodeFromBeginning = Length - n + 1;
+        Node prev = null;
+        Node temp = node;
+        for(int i = 1;i < nodeFromBeginning ; i++){
+            prev = temp;
+            temp = temp.next;
+        }
+        if (prev == null) {
+            node = node.next;
+            return node;
+        }
+        else {
+            prev.next = prev.next.next;
+            return node;
+        }
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = new Node(4);
+        head.next.next.next.next = new Node(5);
+        System.out.println("Print Linked List : ");
+        ptrList(head);
+
+        head = deleteNthNodeFromEnd(head, 4);
+
+        System.out.println("Linked List after Deletion:");
+        ptrList(head);
+    }
+}
